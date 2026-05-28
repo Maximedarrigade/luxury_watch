@@ -3,7 +3,6 @@ import "./App.css";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import RegisterPage from "./auth/RegisterPage.jsx";
 import LoginPage from "./auth/LoginPage.jsx";
-import PrivateRoute from "./routes/PrivateRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import AccueilPage from "./pages/AccueilPage.jsx";
 import Header from "./components/Header.jsx";
@@ -21,35 +20,29 @@ function App() {
   return (
     <>
       <ScrollToTop />
+        <Header />
+          <Routes>
+            {/* Route publique */}
 
-      <Header />
+              <Route path="/" element={<AccueilPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/marques" element={<MarquesPage />} />
+              <Route path="/marques/:id" element={<MarquesDetailPage />} />
+              <Route path="/montres" element={<MontresPage />} />
+              <Route path="/montres/:id" element={<MontresDetailPage />} />
+              <Route path="/search" element={<SearchPage />} />
+              <Route path="/panier" element={<PanierPage />} />
 
-      <Routes>
-        {/* Route publique */}
+            {/* Route admin */}
 
-        <Route path="/" element={<AccueilPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/marques" element={<MarquesPage />} />
-        <Route path="/marques/:id" element={<MarquesDetailPage />} />
-        <Route path="/montres" element={<MontresPage />} />
-        <Route path="/montres/:id" element={<MontresDetailPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/panier" element={<PanierPage />} />
+              <Route element={<AdminRoute />}>
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/admin/commandes" element={<AdminCommandesPage />} />
+              </Route>
+            </Routes>
 
-        {/* Route privée */}
-
-        <Route element={<PrivateRoute />}></Route>
-
-        {/* Route admin */}
-
-        <Route element={<AdminRoute />}>
-          <Route path="/admin" element={<AdminPage />} />
-          <Route path="/admin/commandes" element={<AdminCommandesPage />} />
-        </Route>
-      </Routes>
-
-      <Footer />
+        <Footer />
     </>
   );
 }

@@ -75,6 +75,7 @@ const AccueilPage = () => {
             >
               <Link to={`/montres/${montre.id}`}>
                 <img
+                  // src={`${api}/${montre.image}`} 
                   src={montre.images[0]?.url}
                   alt={montre.nom}
                   className="d-block w-100 carousel-accueil"

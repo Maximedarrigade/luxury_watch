@@ -91,6 +91,7 @@ const MontresDetailPage = () => {
                     className={`carousel-item ${index === 0 ? "active" : ""}`}
                   >
                     <div className="row" style={{ margin: 0 }}>
+                      
                       {/* Image gauche du slide */}
                       {montre.images[index * 2] && (
                         <div className="col-6" style={{ padding: 0 }}>
