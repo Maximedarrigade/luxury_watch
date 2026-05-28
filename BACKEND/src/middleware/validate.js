@@ -1,16 +1,11 @@
-// Validation des entrées 
+// Validation des entrées
 
 export const validate = (schema) => (req, res, next) => {
+  try {
+    req.body = schema.parse(req.body);
 
-    try {
-        
-        req.body = schema.parse(req.body)
-        
-        next(); 
-
-    } catch (error) {
-        
-        next(error); 
-        
-    } 
-}; 
+    next();
+  } catch (error) {
+    next(error);
+  }
+};

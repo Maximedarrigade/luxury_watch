@@ -1,61 +1,61 @@
 import { pool } from "../config/db.js";
 
 export const UserModel = {
+  async findByEmail(email) {
+    const [rows] = await pool.query(
+      "SELECT * FROM utilisateurs WHERE email = ?",
+      [email],
+    );
 
-    async findByEmail(email) {
+    return rows[0];
+  },
 
-        const [rows] = await pool.query("SELECT * FROM utilisateurs WHERE email = ?", [email]); 
+  async create(data) {
+    const [res] = await pool.query(
+      "INSERT INTO utilisateurs (email, mot_de_passe) VALUES (?, ?)",
+      [data.email, data.mot_de_passe],
+    );
 
-        return rows[0]; 
+    return { id: res.insertId, email: data.email };
+  },
 
-    },
-    
-    async create(data) {
+  async findAll() {
+    const [rows] = await pool.query("SELECT * FROM utilisateurs");
 
-        const [res] = await pool.query("INSERT INTO utilisateurs (email, mot_de_passe) VALUES (?, ?)", [data.email, data.mot_de_passe]); 
+    return rows;
+  },
 
-        return {id: res.insertId, email: data.email}; 
+  async getById(id) {
+    const [rows] = await pool.query("SELECT * FROM utilisateurs WHERE id = ?", [
+      id,
+    ]);
 
-    },
-    
-    async findAll() {
+    return rows[0];
+  },
 
-        const [rows] = await pool.query("SELECT * FROM utilisateurs")
+  async updateById(id, data) {
+    const [res] = await pool.query(
+      "UPDATE utilisateurs SET email = ?, mot_de_passe = ? WHERE id = ?",
+      [data.email, data.mot_de_passe, id],
+    );
 
-        return rows
+    return res.affectedRows;
+  },
 
-    }, 
+  async deleteById(id) {
+    const [res] = await pool.query("DELETE FROM utilisateurs WHERE id =?", [
+      id,
+    ]);
 
-    async getById(id) {
+    return res.affectedRows;
+  },
 
-        const [rows] = await pool.query("SELECT * FROM utilisateurs WHERE id = ?", [id])
+  async verifyUser(id) {
+    const [res] = await pool.query(
+      "UPDATE utilisateurs SET is_verified = 1 WHERE id = ? ",
+      [id],
+    );
 
-        return rows[0]; 
-
-    }, 
-
-    async updateById(id, data) {
-
-        const [res] = await pool.query("UPDATE utilisateurs SET email = ?, mot_de_passe = ? WHERE id = ?", [data.email, data.mot_de_passe, id]); 
-
-        return res.affectedRows; 
-
-    },
-
-     async deleteById(id) {
-
-        const [res] = await pool.query("DELETE FROM utilisateurs WHERE id =?", [id]); 
-
-        return res.affectedRows; 
-
-    },
-
-    async verifyUser(id) {
-
-        const [res] = await pool.query("UPDATE utilisateurs SET is_verified = 1 WHERE id = ? ", [id]); 
-
-        return res.affectedRows; 
-    }
-    
-}; 
-
+    return res.affectedRows;
+  },
+};
