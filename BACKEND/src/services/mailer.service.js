@@ -20,7 +20,7 @@ export const sendVerificationEmail = async (email, token) => {
     subject: "Confirmez votre email",
     html: `<h2>Bienvenue ${email} !</h2>
         <p>Merci de vous être inscrit, Cliquez sur le lien ci-dessous pour vérifier ton compte :</p>
-        <a href="http://localhost:5000/api/users/verify?token=${token}">Vérifier mon email</a>`,
+        <a href="https://darrigade.alwaysdata.net/api/users/verify?token=${token}>Vérifier mon email</a>`,
   });
 };
 
@@ -30,6 +30,6 @@ export const sendResetPasswordEmail = async (email, token) => {
     to: email,
     subject: "Réinitialisation du mot de passe",
     html: `<p>Cliquez sur le lien pour réinitialiser votre mot de passe :</p>
-        <a href="http://localhost:3000/api/users/reset-password?token=${token}">Réinitialiser</a>`,
+        <a href="https://cheerful-pika-4908ba.netlify.app/reset-password?token=${token}">Réinitialiser</a>`,
   });
 };
