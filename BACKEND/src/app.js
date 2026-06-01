@@ -15,7 +15,10 @@ import { errorHandler } from "./middleware/errorHandler.js";
 
 // Gestion des erreurs
 const app = express();
-app.use(helmet());
+app.use(helmet({
+crossOriginResourcePolicy: { policy: "cross-origin"}, 
+crossOriginOpenerPolicy: false, 
+}));
 app.use(
   cors({
     // origin: "http://localhost:5173", 
