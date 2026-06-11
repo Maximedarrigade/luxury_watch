@@ -79,11 +79,13 @@ export const register = async (req, res, next) => {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
       sameSite: "none",
+      secure: true,
     }); // Création d'un cookie qui contient le token UUID, inaccessible en JavaScript et qui expire dans 30 jours
     res.cookie("verifyEmail", email, {
       httpOnly: true,
       maxAge: 30 * 24 * 60 * 60 * 1000,
       sameSite: "none",
+      secure: true,
     }); // On stocke aussi l'email dans le cookie au cas ou l'utilisateur clique sur le liens pour vérifier son compte 1h plus tard
 
     await sendVerificationEmail(email, verifyToken);
@@ -99,7 +101,7 @@ export const logout = async (req, res, next) => {
     res.clearCookie("token", {
       httpOnly: true, 
       secure: process.env.NODE_ENV === 'production', 
-      sameSite: "none"
+      sameSite: "none", 
     }); // On supprime le cookie avec le token
 
     res.status(200).json({ message: "Déconnexion réussie" });
